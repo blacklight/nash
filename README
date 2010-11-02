@@ -1,0 +1,62 @@
+This is a small software that simulates the behaviour of a set of individuals
+placed (for sake of simplicity) over a matrix where each individual can choose
+between two strategies:
+
+- Being cooperative with the other individuals
+- Being in competition with the other individuals
+
+From a certain starting point, in which each individuals has its own strategy
+independantly from the one chosen by the others, the algorithm goes on, and a
+certain individual x changes its strategy if there is a neighbour having a
+different strategy and a higher "gain" value (i.e. that strategy takes more
+benefit). The algorithm is repeated as long as an equilibrium point is reached
+(Nash's equilibrium) in which no individual will change its strategy anymore as
+no change is convenient anymore. This balance point won't be always reached
+anyway, and the algorithm recognizes a scenario that has no Nash's equilibrium
+point when a loop occurs (i.e. when it takes in exam a configuration that was
+already met).
+
+Usage of the program: compile simply issuing `make', then start it with
+./nash <environment_file> <coop_coop_gain> <coop_comp_gain> <comp_coop_gain> <comp_comp_gain>
+
+where
+
+- environment_file is a file containing the starting configuration of the
+environment (an example is included in the file `environment'). In this file the
+collaborating individuals are marked by a dot `.', and the ones in competition
+are marked by a `X'. Starting from here you can easily create your environment
+file;
+
+- coop_coop_gain: Score gained when the individual x cooperates and its neighbour
+cooperates as well;
+
+- coop_comp_gain: Score gained when the individual x cooperates and its neighbour
+is in competition;
+
+- comp_coop_gain: Score gained when the individual x is in competition and its
+neighbour cooperates;
+
+- comp_comp_gain: Score gained when both the individual x and its neighbour are
+in competition.
+
+An example is the problem of the two prisoners:
+
+- When A doesn't confess and B doesn't confess too, they both get 8 years of
+prison (coop_coop_gain = -8);
+
+- When A doesn't confess and B confesses, A gets 20 years of prison and B is
+free (coop_comp_gain = -20);
+
+- When A confesses and B doesn't, A is free and B gets 20 years of prison
+(comp_coop_gain = 0);
+
+- When both A and B confess, they both get 14 years of prison (comp_comp_gain =
+-14).
+
+For running a simulation of the two prisoners' problem over the example
+environment just type
+
+./nash environment -8 -20 0 -14
+
+Have fun.
+
